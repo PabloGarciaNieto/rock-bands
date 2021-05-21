@@ -17,7 +17,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['name', 'detail', 'edit', 'delete', 'add'];
   dataSource: MatTableDataSource<Band>;
   bandData: Band[] = [];
-
+  new: Band = { id: '5', name: 'Deep Purple', country: 'England', members: ['p', 'q', 'r'] };
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -31,7 +31,20 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource = new MatTableDataSource(this.bandData);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    let sessionData = JSON.parse(localStorage.getItem('dataSource') || '[]');
+    if (sessionData.length > 0) {
+      console.log(sessionData);
+      this.bandData = sessionData;
+      this.bansService.newBands(this.bandData);
+      this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+      this.dataSource = new MatTableDataSource(this.bandData);
+    } else {
+      console.log('cerito');
+    }
+
+
+
   }
 
   ngAfterViewInit() {
@@ -46,9 +59,33 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dataSource.paginator.firstPage();
     }
   }
+  deleteBand(bandId: string) {
+    console.log('ouch!!');
+    let index = this.bandData.findIndex(e => e.id === bandId);
+    console.log(index);
+    this.bandData.splice(index, 1);
+    this.bansService.newBands(this.bandData);
+    this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+    this.dataSource = new MatTableDataSource(this.bandData);
+    console.log(this.bandData);
+    localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+  }
+
+  addNewBand() {
+    console.log('yeah!!');
+    this.bandData.push(this.new);
+    this.bansService.newBands(this.bandData);
+    this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+    this.dataSource = new MatTableDataSource(this.bandData);
+    localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+  }
+  clear() {
+    localStorage.removeItem('dataSource');
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    console.log('jumanji');
   }
 
 }

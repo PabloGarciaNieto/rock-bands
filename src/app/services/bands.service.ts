@@ -16,7 +16,7 @@ export class BandsService {
   ]);
   bands = this.bandsData.asObservable();
 
-  updateBands(newBand: any) {
+  newBands(newBand: Band[]) {
     this.bandsData.next(newBand);
   }
 }
