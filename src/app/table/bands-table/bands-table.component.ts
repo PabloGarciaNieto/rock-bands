@@ -14,7 +14,7 @@ import { BandsService } from './../../services/bands.service';
 })
 
 export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['name','detail', 'edit', 'delete'];
+  displayedColumns: string[] = ['name', 'detail', 'edit', 'delete', 'add'];
   dataSource: MatTableDataSource<Band>;
   bandData: Band[] = [];
 
@@ -23,18 +23,10 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
- //----------------
- public subscriptions: Subscription[] = [];
-
+  //Para poder unsubsctribe en OnDestroy
+  public subscriptions: Subscription[] = [];
+  //-----
   constructor(private bansService: BandsService) {
- /*    const BANDS_DATA: Band[] = [
-      {id: '1', name: 'The Rolling Stones', country: 'England', members: ['j', 'k', 'l']},
-      {id: '2', name: 'Led Zeppelin', country: 'USA', members: ['m', 'n', 'o']},
-      {id: '3', name: 'Queen', country: 'England', members: ['p', 'q', 'r']},
-
-    ];
-    this.dataSource = new MatTableDataSource(BANDS_DATA); */
-
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
   }
