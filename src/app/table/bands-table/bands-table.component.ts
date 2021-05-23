@@ -82,8 +82,8 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       data: {
         id: idSt
       },
-      width: '100vw',
-      maxWidth: '100vw',
+      width: '95vw',
+      maxWidth: '95vw',
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {

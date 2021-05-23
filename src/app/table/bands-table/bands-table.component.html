@@ -1,7 +1,7 @@
 <div class="table-container">
     <mat-form-field class="filter-background">
-        <mat-label>Filter by name</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Band name" #input>
+        <mat-label class="filter">Filter by Band name</mat-label>
+        <input class="filter" matInput (keyup)="applyFilter($event)" placeholder="Band name" #input>
     </mat-form-field>
     <div class="mat-elevation-z8">
         <table mat-table [dataSource]="dataSource" matSort>
