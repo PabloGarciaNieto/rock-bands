@@ -1,10 +1,14 @@
-import { Component, AfterViewInit, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit, OnDestroy, Inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Band } from './../../models/interface-band';
 import { Subscription } from 'rxjs';
 import { BandsService } from './../../services/bands.service';
+import { MatDialog } from '@angular/material/dialog';
+import { NewBandDialogComponent } from './../../new-band-dialog/new-band-dialog.component';
+
+
 
 
 @Component({
@@ -17,7 +21,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['name', 'detail', 'edit', 'delete', 'add'];
   dataSource: MatTableDataSource<Band>;
   bandData: Band[] = [];
-  new: Band = { id: '5', name: 'Deep Purple', country: 'England', members: ['p', 'q', 'r'] };
+  new: Band = { id: '5', name: 'Deep Purple', country: 'England', members: [{name: ''}], history: '', video: '' };
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -26,7 +30,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   //Para poder unsubsctribe en OnDestroy
   public subscriptions: Subscription[] = [];
   //-----
-  constructor(private bansService: BandsService) {
+  constructor(private bansService: BandsService, public dialog: MatDialog) {
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
   }
@@ -71,14 +75,24 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     localStorage.setItem('dataSource', JSON.stringify(this.bandData));
   }
 
-  addNewBand() {
-    console.log('yeah!!');
-    this.bandData.push(this.new);
-    this.bansService.newBands(this.bandData);
-    this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
-    this.dataSource = new MatTableDataSource(this.bandData);
-    localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+  openNewBandDialog() {
+    let newId = this.bandData.length + 1;
+    console.log(newId);
+    let idSt = newId.toString();
+    let dialogRef = this.dialog.open(NewBandDialogComponent, {
+      data: {
+        id: idSt
+      },
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.bandData.push(res.data);
+      this.bansService.newBands(this.bandData);
+      this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+      this.dataSource = new MatTableDataSource(this.bandData);
+      localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+    });
   }
+
   clear() {
     localStorage.removeItem('dataSource');
   }

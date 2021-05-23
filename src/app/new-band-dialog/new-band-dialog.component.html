@@ -1,0 +1,39 @@
+<mat-dialog-content>
+    <div class="title">
+        <h1>Add reactive forms dynamically</h1>
+        Value: {{ newBandForm.value | json }}
+    </div>
+    <form [formGroup]="newBandForm" class="array-form">
+        <mat-form-field appearance="outline">
+            <mat-label>name</mat-label>
+            <input matInput placeholder="name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>country</mat-label>
+            <input matInput placeholder="country" formControlName="country">
+        </mat-form-field>
+        <div formArrayName="members" class="">
+            <div *ngFor="let memberName of membersNames.controls; let i = index" [formGroupName]="i" class="phones">
+                <h4>Member {{ (i + 1) }}</h4>
+                <mat-form-field>
+                    <input matInput placeholder="name" formControlName="name">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="surname" formControlName="surname">
+                </mat-form-field>
+                <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete</button>
+            </div>
+        </div>
+        <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
+        <mat-form-field appearance="outline">
+            <mat-label>History</mat-label>
+            <textarea matInput placeholder="history" formControlName="history">
+          </textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Video</mat-label>
+            <input matInput placeholder="video" formControlName="video">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="addBand()">Create Band</button>
+    </form>
+</mat-dialog-content>

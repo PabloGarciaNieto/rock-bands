@@ -38,10 +38,12 @@
         </ng-container>
         <!-- Add band icon -->
         <ng-container matColumnDef="add">
-            <th mat-header-cell *matHeaderCellDef (click)="addNewBand()">
-                <button class="add-button" mat-icon-button color="accent" aria-label="Icon button with an add new band icon">
-                  <mat-icon>add</mat-icon> Add a new Band
-                </button>
+            <th mat-header-cell *matHeaderCellDef class="add-color" (click)="openNewBandDialog()">
+                <div class="add-cont">
+                    <button mat-icon-button>
+                  <mat-icon class="mat-18">add</mat-icon>
+              </button>Add Band
+                </div>
             </th>
             <td mat-cell *matCellDef="let element"></td>
         </ng-container>

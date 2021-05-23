@@ -2,6 +2,16 @@ table {
     width: 100%;
 }
 
+.add-cont {
+    width: 8em;
+    display: flex;
+    align-items: baseline;
+}
+
+.add-color {
+    cursor: pointer;
+}
+
 .filter-background {
     width: 100%;
     background-color: #424242;

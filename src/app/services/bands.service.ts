@@ -9,10 +9,10 @@ export class BandsService {
 
   constructor() { }
   public bandsData = new BehaviorSubject<Band[]>([
-    {id: '1', name: 'The Rolling Stones', country: 'England', members: ['j', 'k', 'l']},
-    {id: '2', name: 'Led Zeppelin', country: 'USA', members: ['m', 'n', 'o']},
-    {id: '3', name: 'Queen', country: 'England', members: ['p', 'q', 'r']},
-    {id: '4', name: 'Pink Floyd', country: 'England', members: ['p', 'q', 'r']},
+    {id: '1', name: 'The Rolling Stones', country: 'England', members: [{name: ''}], history: '', video: ''},
+    {id: '2', name: 'Led Zeppelin', country: 'USA', members: [{name: ''}], history: '', video: ''},
+    {id: '3', name: 'Queen', country: 'England', members: [{name: ''}], history: '', video: ''},
+    {id: '4', name: 'Pink Floyd', country: 'England', members: [{name: ''}], history: '', video: ''},
   ]);
   bands = this.bandsData.asObservable();
 
