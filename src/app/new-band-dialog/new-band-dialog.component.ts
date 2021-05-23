@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+//-----------
 export interface DialogData {
   id: '';
 }
@@ -10,6 +12,7 @@ export interface DialogData {
   styleUrls: ['./new-band-dialog.component.scss']
 })
 export class NewBandDialogComponent implements OnInit {
+
   newBandForm: FormGroup = this.fb.group({
     id: '',
     name: '',
@@ -21,8 +24,8 @@ export class NewBandDialogComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
      private fb: FormBuilder,
-    private dialogRef: MatDialogRef<NewBandDialogComponent>) {
-   }
+    private dialogRef: MatDialogRef<NewBandDialogComponent>,
+    ) {}
 
   ngOnInit() {
     this.newBandForm = this.fb.group({

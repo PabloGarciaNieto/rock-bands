@@ -21,7 +21,6 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['name', 'detail', 'edit', 'delete', 'add'];
   dataSource: MatTableDataSource<Band>;
   bandData: Band[] = [];
-  new: Band = { id: '5', name: 'Deep Purple', country: 'England', members: [{name: ''}], history: '', video: '' };
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -83,13 +82,19 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       data: {
         id: idSt
       },
+      width: '100vw',
+      maxWidth: '100vw',
     });
     dialogRef.afterClosed().subscribe(res => {
+      if (res) {
       this.bandData.push(res.data);
       this.bansService.newBands(this.bandData);
       this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
       this.dataSource = new MatTableDataSource(this.bandData);
       localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+      } else {
+        console.log('No band created');
+      }
     });
   }
 
