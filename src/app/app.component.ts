@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Band } from './models/interface-band';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

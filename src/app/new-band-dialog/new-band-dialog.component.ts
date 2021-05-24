@@ -1,11 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms'
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IdDialogData } from './../models/interface-newId';
 
-//-----------
-export interface DialogData {
-  id: '';
-}
+
 @Component({
   selector: 'app-new-band-dialog',
   templateUrl: './new-band-dialog.component.html',
@@ -22,7 +20,7 @@ export class NewBandDialogComponent implements OnInit {
     video: '',
   });
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: IdDialogData,
      private fb: FormBuilder,
     private dialogRef: MatDialogRef<NewBandDialogComponent>,
     ) {}
@@ -30,7 +28,7 @@ export class NewBandDialogComponent implements OnInit {
   ngOnInit() {
     this.newBandForm = this.fb.group({
       id: this.data.id,
-      name: '',
+      name:  '',
       country: '',
       members: this.fb.array([]),
       history: '',
@@ -39,6 +37,9 @@ export class NewBandDialogComponent implements OnInit {
   }
   get membersNames() {
     return this.newBandForm.get('members') as FormArray;
+  }
+  get name() {
+    return this.newBandForm.get('name');
   }
   addMemberName() {
     const memberName = this.fb.group({

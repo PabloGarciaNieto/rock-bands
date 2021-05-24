@@ -32,6 +32,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private bansService: BandsService, public dialog: MatDialog) {
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
+    console.log('TRISKETOOOOOOOSSSSSS-----');
   }
 
   ngOnInit() {
@@ -42,17 +43,16 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.bansService.newBands(this.bandData);
       this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
       this.dataSource = new MatTableDataSource(this.bandData);
+      localStorage.setItem('dataSource', JSON.stringify(this.bandData));
     } else {
       console.log('cerito');
     }
-
-
-
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    console.log('afterView');
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -70,7 +70,8 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.bansService.newBands(this.bandData);
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
-    console.log(this.bandData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     localStorage.setItem('dataSource', JSON.stringify(this.bandData));
   }
 
@@ -87,11 +88,13 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-      this.bandData.push(res.data);
-      this.bansService.newBands(this.bandData);
-      this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
-      this.dataSource = new MatTableDataSource(this.bandData);
-      localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+        this.bandData.push(res.data);
+        this.bansService.newBands(this.bandData);
+        this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+        localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+        this.dataSource = new MatTableDataSource(this.bandData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       } else {
         console.log('No band created');
       }
@@ -104,7 +107,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    console.log('jumanji');
+
   }
 
 }
