@@ -14,9 +14,11 @@
         <div *ngFor="let member of members; let i = index" class="member-name-container">
             <div class="name-control">
                 <mat-form-field appearance="outline">
+                    <mat-label>Member name</mat-label>
                     <input matInput placeholder="Member name" [(ngModel)]="member.name" name="name_{{ member.id }}">
                 </mat-form-field>
                 <mat-form-field appearance="outline">
+                    <mat-label>Member surname</mat-label>
                     <input matInput placeholder="Member surname" [(ngModel)]="member.surname" name="surname_{{ member.id }}">
                 </mat-form-field>
             </div>
@@ -42,17 +44,17 @@
           <div class="button-container button-container--add">
               <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
           </div>
-      </div>
-      <mat-form-field appearance="outline">
-          <mat-label>History</mat-label>
-          <textarea matInput placeholder="history" [(ngModel)]="newBandForm.history" name="history">
+      </div> -->
+        <mat-form-field appearance="outline">
+            <mat-label>History</mat-label>
+            <textarea matInput placeholder="history" [(ngModel)]="newBandForm.history" name="history">
       </textarea>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-          <mat-label>Video</mat-label>
-          <input matInput placeholder="video" [(ngModel)]="newBandForm.video" name="video">
-      </mat-form-field>
-      <button mat-raised-button color="accent" (click)="editBand()">Create Band</button> -->
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Video</mat-label>
+            <input matInput placeholder="video" [(ngModel)]="newBandForm.video" name="video">
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="editBand()">Create Band</button>
     </form>
 </mat-dialog-content>
 
