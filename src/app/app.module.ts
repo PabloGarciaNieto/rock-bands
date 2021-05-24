@@ -22,11 +22,13 @@ import { BandsService } from './services/bands.service';
 import { AppComponent } from './app.component';
 import { BandsTableComponent } from './table/bands-table/bands-table.component';
 import { NewBandDialogComponent } from './new-band-dialog/new-band-dialog.component';
+import { EditBandDialogComponent } from './edit-band-dialog/edit-band-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     BandsTableComponent,
     NewBandDialogComponent,
+    EditBandDialogComponent,
 
   ],
   imports: [

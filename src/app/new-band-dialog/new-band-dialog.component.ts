@@ -54,7 +54,7 @@ export class NewBandDialogComponent implements OnInit {
     console.log(typeof i);
   }
   addBand() {
-    this.dialogRef.close({ data: this.newBandForm.value })
+    this.dialogRef.close({ data: this.newBandForm.value });
   }
 
 }

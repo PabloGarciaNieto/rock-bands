@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { BandsService } from './../../services/bands.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBandDialogComponent } from './../../new-band-dialog/new-band-dialog.component';
+import { EditBandDialogComponent } from './../../edit-band-dialog/edit-band-dialog.component';
+
 
 
 
@@ -29,10 +31,10 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   //Para poder unsubsctribe en OnDestroy
   public subscriptions: Subscription[] = [];
   //-----
-  constructor(private bansService: BandsService, public dialog: MatDialog) {
+  constructor(private bansService: BandsService,
+     public dialog: MatDialog) {
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
-    console.log('TRISKETOOOOOOOSSSSSS-----');
   }
 
   ngOnInit() {
@@ -45,14 +47,13 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dataSource = new MatTableDataSource(this.bandData);
       localStorage.setItem('dataSource', JSON.stringify(this.bandData));
     } else {
-      console.log('cerito');
+      console.log('localStorage vacío');
     }
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log('afterView');
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -88,6 +89,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
+        console.log('New band created');
         this.bandData.push(res.data);
         this.bansService.newBands(this.bandData);
         this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
@@ -100,6 +102,38 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+  OpenEditBandDialog(bandId: string) {
+    console.log(this.bandData);
+    console.log(typeof this.bandData);
+    let band = this.bandData.find(val => val.id === bandId);
+    console.log(band?.members);
+    let dialogRef = this.dialog.open(EditBandDialogComponent, {
+      data: {
+        id: band?.id,
+        name: band?.name,
+        country: band?.country,
+        members: band?.members,
+        history: band?.history,
+        video: band?.video,
+      },
+      width: '95vw',
+      maxWidth: '95vw',
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        console.log('Band Edited');
+        this.bandData.push(res.data);
+        this.bansService.newBands(this.bandData);
+        this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+        localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+        this.dataSource = new MatTableDataSource(this.bandData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      } else {
+        console.log('No Edited');
+      }
+    });
+  }
 
   clear() {
     localStorage.removeItem('dataSource');
@@ -107,7 +141,6 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
-
   }
 
 }
