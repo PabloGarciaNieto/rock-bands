@@ -13,7 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-
+//YOUTUBE MODULE--------------------
+import { YouTubePlayerModule } from "@angular/youtube-player";
 
 //SERVICES--------------------------
 import { BandsService } from './services/bands.service';
@@ -47,7 +48,7 @@ import { DetailBandDialogComponent } from './table-dialogs/detail-band-dialog/de
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
-
+    YouTubePlayerModule
   ],
   providers: [BandsService],
   bootstrap: [AppComponent]
