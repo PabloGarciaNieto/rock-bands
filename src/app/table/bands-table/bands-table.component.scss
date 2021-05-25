@@ -1,15 +1,25 @@
 .table-container {
     padding: 10px;
+    background-color: #424242;
 }
 
 table {
     width: 100%;
 }
 
+.filter-add {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
 .add-cont {
     width: 8em;
     display: flex;
-    align-items: baseline;
+    justify-content: flex-end;
+    align-items: center;
+    color: #ea80fc;
+    cursor: pointer;
 }
 
 .add-color {
@@ -17,7 +27,7 @@ table {
 }
 
 .filter-background {
-    width: 100%;
+    width: 40%;
     background-color: #424242;
     padding-top: 5px;
     color: white;

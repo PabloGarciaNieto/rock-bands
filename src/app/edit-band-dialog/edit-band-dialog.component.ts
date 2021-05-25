@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Band } from './../models/interface-band';
 
@@ -37,10 +37,8 @@ export class EditBandDialogComponent implements OnInit {
       this.members.push(val);
       console.log(val);
     });
-
-    console.log(this.members);
-    console.log(typeof this.members);
   }
+
 
   addMemberName() {
     const memberName = {
@@ -51,14 +49,13 @@ export class EditBandDialogComponent implements OnInit {
     this.members.push(memberName);
     this.newBandForm.members = this.members;
   }
+
   deleteMember(i: number) {
     this.members.splice(i, 1);
     this.newBandForm.members = this.members;
-    console.log(this.members);
   }
+
   editBand() {
-    console.log('this.newBandForm');
-    console.log(this.newBandForm);
     this.dialogRef.close({ data: this.newBandForm })
   }
 

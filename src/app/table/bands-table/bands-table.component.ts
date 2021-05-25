@@ -20,7 +20,7 @@ import { EditBandDialogComponent } from './../../edit-band-dialog/edit-band-dial
 })
 
 export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['name', 'detail', 'edit', 'delete', 'add'];
+  displayedColumns: string[] = ['name', 'detail', 'edit', 'delete'];
   dataSource: MatTableDataSource<Band>;
   bandData: Band[] = [];
 

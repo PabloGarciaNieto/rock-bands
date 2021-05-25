@@ -1,11 +1,11 @@
 <mat-dialog-content>
     <div class="title">
-        <h2>Enter Band info and keep on rocking!</h2>
+        <h2>Edit Band Info<span class="smaller-text"> and keep on rocking!</span></h2>
     </div>
-    <form #editForm class="form-container">
+    <form #editForm="ngForm" class="form-container">
         <mat-form-field appearance="outline">
             <mat-label>Band name</mat-label>
-            <input matInput placeholder="Band name" [(ngModel)]="newBandForm.name" name="name">
+            <input matInput placeholder="Band name" [(ngModel)]="newBandForm.name" name="name" required>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Band country</mat-label>
@@ -24,23 +24,6 @@
             </div>
             <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
         </div>
-
-        <!--       <div class="bandMembers-names-container">
-          <div formArrayName="members">
-              <h3>Add here the members names</h3>
-              <div *ngFor="let memberName of membersNames.controls; let i = index" [formGroupName]="i" class="member-name-container">
-                  <h4>{{(i + 1)}} Band member : {{ newBandForm.value.members[i].name }} {{ newBandForm.value.members[i].surname }}</h4>
-                  <div class="name-control">
-                      <mat-form-field appearance="outline">
-                          <input matInput placeholder="Member name" formControlName="name">
-                      </mat-form-field>
-                      <mat-form-field appearance="outline">
-                          <input matInput placeholder="Member surname" formControlName="surname">
-                      </mat-form-field>
-                  </div>
-                  <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
-              </div>
-          </div>-->
         <div class="button-container button-container--add">
             <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
         </div>
@@ -54,53 +37,6 @@
             <mat-label>Video</mat-label>
             <input matInput placeholder="video" [(ngModel)]="newBandForm.video" name="video">
         </mat-form-field>
-        <button mat-raised-button color="accent" (click)="editBand()">Edit Band</button>
+        <button mat-raised-button color="accent" [disabled]="editForm.invalid" (click)="editBand()">Edit Band</button>
     </form>
 </mat-dialog-content>
-
-<!-- <mat-dialog-content>
-    <div class="title">
-        <h2>Enter Band info and keep on rocking!</h2>
-    </div>
-    <form [formGroup]="newBandForm" class="form-container">
-        <mat-form-field appearance="outline">
-            <mat-label>Band name</mat-label>
-            <input matInput placeholder="Band name" formControlName="name">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Band country</mat-label>
-            <input matInput placeholder="Band country" formControlName="country">
-        </mat-form-field>
-        <div class="bandMembers-names-container">
-            <div formArrayName="members">
-                <h3>Add here the members names</h3>
-                <div *ngFor="let memberName of membersNames.controls; let i = index" [formGroupName]="i" class="member-name-container">
-                    <h4>{{(i + 1)}} Band member : {{ newBandForm.value.members[i].name }} {{ newBandForm.value.members[i].surname }}</h4>
-                    <div class="name-control">
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Member name" formControlName="name">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <input matInput placeholder="Member surname" formControlName="surname">
-                        </mat-form-field>
-                    </div>
-                    <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
-                </div>
-            </div>
-            <div class="button-container button-container--add">
-                <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
-            </div>
-        </div>
-        <mat-form-field appearance="outline">
-            <mat-label>History</mat-label>
-            <textarea matInput placeholder="history" formControlName="history">
-        </textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Video</mat-label>
-            <input matInput placeholder="video" formControlName="video">
-        </mat-form-field>
-        <button mat-raised-button color="accent" (click)="editBand()">Create Band</button>
-    </form>
-</mat-dialog-content>
- -->

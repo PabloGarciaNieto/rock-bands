@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IdDialogData } from './../models/interface-newId';
 
 
+
 @Component({
   selector: 'app-new-band-dialog',
   templateUrl: './new-band-dialog.component.html',
@@ -28,7 +29,7 @@ export class NewBandDialogComponent implements OnInit {
   ngOnInit() {
     this.newBandForm = this.fb.group({
       id: this.data.id,
-      name:  '',
+      name: ['', Validators.required],
       country: '',
       members: this.fb.array([]),
       history: '',
@@ -38,8 +39,9 @@ export class NewBandDialogComponent implements OnInit {
   get membersNames() {
     return this.newBandForm.get('members') as FormArray;
   }
-  get name() {
-    return this.newBandForm.get('name');
+
+  get getControl(){
+    return this.newBandForm.controls;
   }
   addMemberName() {
     const memberName = this.fb.group({
@@ -58,7 +60,7 @@ export class NewBandDialogComponent implements OnInit {
       el.id = Math.random();
     })
     this.dialogRef.close({ data: this.newBandForm.value });
-    console.log(this.newBandForm.value);
+    console.log(this.newBandForm.value.name);
   }
 
 }

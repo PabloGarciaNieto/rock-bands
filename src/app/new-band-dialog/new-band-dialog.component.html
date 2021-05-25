@@ -1,12 +1,15 @@
 <mat-dialog-content>
     <div class="title">
-        <h2>Enter Band info and keep on rocking!</h2>
+        <h2>Enter Band Info<span class="smaller-text"> and keep on rocking!</span></h2>
         <!-- Value: {{ newBandForm.value | json }} -->
     </div>
     <form [formGroup]="newBandForm" class="form-container">
         <mat-form-field appearance="outline">
             <mat-label>Band name</mat-label>
             <input matInput placeholder="Band name" formControlName="name">
+            <mat-error *ngIf="getControl.name.touched && getControl.name.invalid">
+                Band name required, yeah!
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Band country</mat-label>
@@ -41,6 +44,6 @@
             <mat-label>Video</mat-label>
             <input matInput placeholder="video" formControlName="video">
         </mat-form-field>
-        <button mat-raised-button color="accent" (click)="addBand()">Create Band</button>
+        <button mat-raised-button [disabled]="newBandForm.invalid" color="accent" (click)="addBand()">Create Band</button>
     </form>
 </mat-dialog-content>

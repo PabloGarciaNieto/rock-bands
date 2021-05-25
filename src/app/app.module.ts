@@ -45,6 +45,7 @@ import { EditBandDialogComponent } from './edit-band-dialog/edit-band-dialog.com
     ReactiveFormsModule,
     FormsModule,
     MatDialogModule,
+
   ],
   providers: [BandsService],
   bootstrap: [AppComponent]
