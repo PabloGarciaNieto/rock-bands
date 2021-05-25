@@ -145,18 +145,22 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       maxWidth: '95vw',
     });
     dialogRef.afterClosed().subscribe(res => {
-      const bandId = res.data.id
-      let index = this.bandData.findIndex(e => e.id === bandId);
-      this.bandData.splice(index, 1);
-      console.log(this.bandData);
-      this.bandData.push(res.data);
-      this.bansService.newBands(this.bandData);
-      this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
-      localStorage.setItem('dataSource', JSON.stringify(this.bandData));
-      this.dataSource = new MatTableDataSource(this.bandData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      console.log(this.bandData);
+      if (res) {
+        const bandId = res.data.id
+        let index = this.bandData.findIndex(e => e.id === bandId);
+        this.bandData.splice(index, 1);
+        console.log(this.bandData);
+        this.bandData.push(res.data);
+        this.bansService.newBands(this.bandData);
+        this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+        localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+        this.dataSource = new MatTableDataSource(this.bandData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        console.log(this.bandData);
+      } else {
+        console.log('No band edited');
+      }
     });
   }
 

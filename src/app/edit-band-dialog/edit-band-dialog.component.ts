@@ -41,24 +41,25 @@ export class EditBandDialogComponent implements OnInit {
     console.log(this.members);
     console.log(typeof this.members);
   }
-  /*
-   get name() {
-     return this.newBandForm.get('name');
-   } */
+
   addMemberName() {
     const memberName = {
-      name: [],
-      surname: []
-    };
-    //this.membersNames.push(memberName);
+      id: Math.random(),
+      name: '',
+      surname: ''
+    }
+    this.members.push(memberName);
+    this.newBandForm.members = this.members;
   }
-  deleteMember(i: any) {
-    //this.membersNames.removeAt(i);
+  deleteMember(i: number) {
+    this.members.splice(i, 1);
+    this.newBandForm.members = this.members;
+    console.log(this.members);
   }
   editBand() {
     console.log('this.newBandForm');
     console.log(this.newBandForm);
-    this.dialogRef.close({ data: this.newBandForm})
+    this.dialogRef.close({ data: this.newBandForm })
   }
 
 }
