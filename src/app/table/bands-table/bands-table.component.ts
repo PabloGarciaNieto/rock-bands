@@ -6,8 +6,8 @@ import { Band } from './../../models/interface-band';
 import { Subscription } from 'rxjs';
 import { BandsService } from './../../services/bands.service';
 import { MatDialog } from '@angular/material/dialog';
-import { NewBandDialogComponent } from './../../new-band-dialog/new-band-dialog.component';
-import { EditBandDialogComponent } from './../../edit-band-dialog/edit-band-dialog.component';
+import { NewBandDialogComponent } from '../../table-dialogs/new-band-dialog/new-band-dialog.component';
+import { EditBandDialogComponent } from '../../table-dialogs/edit-band-dialog/edit-band-dialog.component';
 
 
 

@@ -21,14 +21,16 @@ import { BandsService } from './services/bands.service';
 //COMPONENTS------------------------
 import { AppComponent } from './app.component';
 import { BandsTableComponent } from './table/bands-table/bands-table.component';
-import { NewBandDialogComponent } from './new-band-dialog/new-band-dialog.component';
-import { EditBandDialogComponent } from './edit-band-dialog/edit-band-dialog.component';
+import { NewBandDialogComponent } from './table-dialogs/new-band-dialog/new-band-dialog.component';
+import { EditBandDialogComponent } from './table-dialogs/edit-band-dialog/edit-band-dialog.component';
+import { DetailBandDialogComponent } from './table-dialogs/detail-band-dialog/detail-band-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     BandsTableComponent,
     NewBandDialogComponent,
     EditBandDialogComponent,
+    DetailBandDialogComponent,
 
   ],
   imports: [
