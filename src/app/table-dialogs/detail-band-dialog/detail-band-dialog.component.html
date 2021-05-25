@@ -1,1 +1,18 @@
-<p>detail-band-dialog works!</p>
+<mat-dialog-content>
+    <h1>{{newBandForm.name}}</h1>
+    <h3>{{newBandForm.country}}</h3>
+    <div class="member-names-container">
+        <h3 class="member-names-title">Band members</h3>
+        <div class="member-names">
+            <div *ngFor="let member of members; let i = index">
+                <div class="name-box">
+                    <p class="instrument-text">{{member.instrument}}</p>
+                    <p>{{member.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>History</h3>
+    <p>{{newBandForm.history}}</p>
+
+</mat-dialog-content>

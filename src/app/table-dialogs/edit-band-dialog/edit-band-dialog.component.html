@@ -8,26 +8,28 @@
             <input matInput placeholder="Band name" [(ngModel)]="newBandForm.name" name="name" required>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Band country</mat-label>
-            <input matInput placeholder="Band country" [(ngModel)]="newBandForm.country" name="country">
+            <mat-label>Country of origin</mat-label>
+            <input matInput placeholder="Country of origin" [(ngModel)]="newBandForm.country" name="country">
         </mat-form-field>
-        <div *ngFor="let member of members; let i = index" class="member-name-container">
-            <div class="name-control">
-                <mat-form-field appearance="outline">
-                    <mat-label>Member name</mat-label>
-                    <input matInput placeholder="Member name" [(ngModel)]="member.name" name="name_{{ member.id }}">
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>Member surname</mat-label>
-                    <input matInput placeholder="Member surname" [(ngModel)]="member.surname" name="surname_{{ member.id }}">
-                </mat-form-field>
+        <div class="bandMembers-names-container">
+            <h3>Edit here the band members</h3>
+            <div *ngFor="let member of members; let i = index" class="member-name-container">
+                <div class="name-control">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Member name</mat-label>
+                        <input matInput placeholder="Member name" [(ngModel)]="member.name" name="name_{{ member.id }}">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Instrument</mat-label>
+                        <input matInput placeholder="Instrument" [(ngModel)]="member.instrument" name="instrument_{{ member.id }}">
+                    </mat-form-field>
+                </div>
+                <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
             </div>
-            <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
+            <div class="button-container button-container--add">
+                <button mat-raised-button color="primary" (click)="addMemberName()">Add New Member</button>
+            </div>
         </div>
-        <div class="button-container button-container--add">
-            <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
-        </div>
-
         <mat-form-field appearance="outline">
             <mat-label>History</mat-label>
             <textarea matInput placeholder="history" [(ngModel)]="newBandForm.history" name="history">

@@ -8,7 +8,7 @@ import { BandsService } from './../../services/bands.service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewBandDialogComponent } from '../../table-dialogs/new-band-dialog/new-band-dialog.component';
 import { EditBandDialogComponent } from '../../table-dialogs/edit-band-dialog/edit-band-dialog.component';
-
+import { DetailBandDialogComponent } from './../../table-dialogs/detail-band-dialog/detail-band-dialog.component';
 
 
 
@@ -163,7 +163,25 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-
+  //Show  a band detail--------------
+  openShowBandDetail(bandId: number) {
+    console.log(this.bandData);
+    console.log(typeof this.bandData);
+    let band = this.bandData.find(val => val.id === bandId);
+    console.log(band?.members);
+    let dialogRef = this.dialog.open(DetailBandDialogComponent, {
+      data: {
+        id: band?.id,
+        name: band?.name,
+        country: band?.country,
+        members: band?.members,
+        history: band?.history,
+        video: band?.video,
+      },
+      width: '95vw',
+      maxWidth: '95vw',
+    });
+  }
   clear() {
     localStorage.removeItem('dataSource');
   }

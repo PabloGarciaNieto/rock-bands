@@ -27,7 +27,6 @@ export class EditBandDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('yte');
     console.log(this.data);
     console.log(typeof this.data);
     this.newBandForm = this.data;
@@ -42,7 +41,7 @@ export class EditBandDialogComponent implements OnInit {
     const memberName = {
       id: Math.random(),
       name: '',
-      surname: ''
+      instrument: ''
     }
     this.members.push(memberName);
     this.newBandForm.members = this.members;

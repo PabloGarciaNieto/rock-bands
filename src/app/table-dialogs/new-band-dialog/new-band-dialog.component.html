@@ -12,27 +12,29 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Band country</mat-label>
-            <input matInput placeholder="Band country" formControlName="country">
+            <mat-label>Country of origin</mat-label>
+            <input matInput placeholder="Country of origin" formControlName="country">
         </mat-form-field>
         <div class="bandMembers-names-container">
             <div formArrayName="members">
-                <h3>Add here the members names</h3>
+                <h3>Add here the band members</h3>
                 <div *ngFor="let memberName of membersNames.controls; let i = index" [formGroupName]="i" class="member-name-container">
-                    <h4>{{(i + 1)}} Band member : {{ newBandForm.value.members[i].name }} {{ newBandForm.value.members[i].surname }}</h4>
+                    <h4>{{(i + 1)}} Band member : {{ newBandForm.value.members[i].name}} {{ newBandForm.value.members[i].instrument }}</h4>
                     <div class="name-control">
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Member name" formControlName="name">
+                            <mat-label>Member name</mat-label>
+                            <input matInput placeholder="Name" formControlName="name">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
-                            <input matInput placeholder="Member surname" formControlName="surname">
+                            <mat-label>Instrument</mat-label>
+                            <input matInput placeholder="Instrument" formControlName="instrument">
                         </mat-form-field>
                     </div>
-                    <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Name</button>
+                    <button mat-raised-button color="warn" (click)="deleteMember(i)">Delete Member</button>
                 </div>
             </div>
             <div class="button-container button-container--add">
-                <button mat-raised-button color="primary" (click)="addMemberName()">Add Member Name</button>
+                <button mat-raised-button color="primary" (click)="addMemberName()">Add New Member</button>
             </div>
         </div>
         <mat-form-field appearance="outline">

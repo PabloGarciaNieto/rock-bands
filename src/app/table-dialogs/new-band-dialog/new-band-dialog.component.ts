@@ -46,7 +46,7 @@ export class NewBandDialogComponent implements OnInit {
   addMemberName() {
     const memberName = this.fb.group({
       name: [],
-      surname: []
+      instrument: []
     });
     this.membersNames.push(memberName);
   }
