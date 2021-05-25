@@ -12,7 +12,7 @@ import { IdDialogData } from './../models/interface-newId';
 export class NewBandDialogComponent implements OnInit {
 
   newBandForm: FormGroup = this.fb.group({
-    id: '',
+    id: null,
     name: '',
     country: '',
     members: [],

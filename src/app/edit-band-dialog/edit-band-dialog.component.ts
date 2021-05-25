@@ -12,22 +12,16 @@ import { Band } from './../models/interface-band';
 export class EditBandDialogComponent implements OnInit {
 
   newBandForm: Band = {
-    id: '',
+    id: 0,
     name: '',
     country: '',
     members: [],
     history: '',
     video: '',
   };
+  //----------
   members: any[] = [];
-  /*   newBandForm: FormGroup = this.fb.group({
-      id: '',
-      name: '',
-      country: '',
-      members: [],
-      history: '',
-      video: '',
-    }); */
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Band,
     private fb: FormBuilder,
@@ -46,44 +40,25 @@ export class EditBandDialogComponent implements OnInit {
 
     console.log(this.members);
     console.log(typeof this.members);
-    /*   this.newBandForm = this.fb.group({
-        id: this.data.id,
-        name:  this.data.name,
-        country: this.data.country,
-        members: this.fb.array(this.data.members),
-        history: this.data.history,
-        video: this.data.video,
-      });
-      this.newBandForm.setValue({
-        id: this.data.id,
-        name:  this.data.name,
-        country: this.data.country,
-        members: this.fb.array(this.data.members),
-        history: this.data.history,
-        video: this.data.video,
-      }); */
   }
-  /*  get membersNames() {
-     console.log('coyimbo');
-     console.log(this.newBandForm);
-     console.log(this.newBandForm.value.members);
-     return this.newBandForm.get('members') as FormArray;
-   }
+  /*
    get name() {
      return this.newBandForm.get('name');
    } */
   addMemberName() {
-    const memberName = this.fb.group({
+    const memberName = {
       name: [],
       surname: []
-    });
+    };
     //this.membersNames.push(memberName);
   }
   deleteMember(i: any) {
     //this.membersNames.removeAt(i);
   }
   editBand() {
-    //this.dialogRef.close({ data: this.newBandForm.value })
+    console.log('this.newBandForm');
+    console.log(this.newBandForm);
+    this.dialogRef.close({ data: this.newBandForm})
   }
 
 }

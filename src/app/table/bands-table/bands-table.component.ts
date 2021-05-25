@@ -32,7 +32,7 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   //-----
   constructor(private bansService: BandsService,
-     public dialog: MatDialog) {
+    public dialog: MatDialog) {
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
   }
@@ -63,7 +63,8 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dataSource.paginator.firstPage();
     }
   }
-  deleteBand(bandId: string) {
+  //Delete a Band--------
+  deleteBand(bandId: number) {
     console.log('ouch!!');
     let index = this.bandData.findIndex(e => e.id === bandId);
     console.log(index);
@@ -75,11 +76,29 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.sort = this.sort;
     localStorage.setItem('dataSource', JSON.stringify(this.bandData));
   }
-
+  //Create a New Band--------
   openNewBandDialog() {
-    let newId = this.bandData.length + 1;
-    console.log(newId);
-    let idSt = newId.toString();
+    if (this.bandData.length < 1) {
+      console.log('reduce petará');
+      let newBandForm: Band = {
+        id: 0,
+        name: '',
+        country: '',
+        members: [],
+        history: '',
+        video: '',
+      };
+      this.bandData.push(newBandForm);
+    }
+    const maxIdBand = this.bandData.reduce(function (prev, current) {
+      return (prev.id > current.id) ? prev : current
+    });
+    console.log('maxIdBand');
+    console.log(maxIdBand);
+    let newId = maxIdBand.id + 1;
+    console.log('this.bandData');
+    console.log(this.bandData);
+    let idSt = newId;
     let dialogRef = this.dialog.open(NewBandDialogComponent, {
       data: {
         id: idSt
@@ -91,6 +110,11 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       if (res) {
         console.log('New band created');
         this.bandData.push(res.data);
+        let id = this.bandData.findIndex(e => e.id === 0);
+        console.log(id);
+        if (id !== -1) {
+          this.bandData.splice(id, 1);
+        }
         this.bansService.newBands(this.bandData);
         this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
         localStorage.setItem('dataSource', JSON.stringify(this.bandData));
@@ -102,7 +126,8 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-  OpenEditBandDialog(bandId: string) {
+  //Edit a Band--------
+  OpenEditBandDialog(bandId: number) {
     console.log(this.bandData);
     console.log(typeof this.bandData);
     let band = this.bandData.find(val => val.id === bandId);
@@ -120,18 +145,18 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       maxWidth: '95vw',
     });
     dialogRef.afterClosed().subscribe(res => {
-      if (res) {
-        console.log('Band Edited');
-        this.bandData.push(res.data);
-        this.bansService.newBands(this.bandData);
-        this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
-        localStorage.setItem('dataSource', JSON.stringify(this.bandData));
-        this.dataSource = new MatTableDataSource(this.bandData);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      } else {
-        console.log('No Edited');
-      }
+      const bandId = res.data.id
+      let index = this.bandData.findIndex(e => e.id === bandId);
+      this.bandData.splice(index, 1);
+      console.log(this.bandData);
+      this.bandData.push(res.data);
+      this.bansService.newBands(this.bandData);
+      this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
+      localStorage.setItem('dataSource', JSON.stringify(this.bandData));
+      this.dataSource = new MatTableDataSource(this.bandData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      console.log(this.bandData);
     });
   }
 
