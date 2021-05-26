@@ -1,6 +1,22 @@
 .table-container {
     padding: 10px;
     background-color: #424242;
+    .header {
+        padding-top: 20px;
+        padding-left: 15px;
+        .list-title {
+            font-size: 3rem;
+            font-style: italic;
+            line-height: 3rem;
+            color: #ea80fc;
+            .no-italic {
+                font-style: normal;
+            }
+            .yellow {
+                color: #fee20d;
+            }
+        }
+    }
 }
 
 table {
@@ -34,4 +50,13 @@ table {
     .filter {
         padding-left: 10px;
     }
+}
+
+.ico-text {
+    color: #b0bec5;
+    padding-right: 5px;
+}
+
+.advice {
+    color: #ea80fc;
 }

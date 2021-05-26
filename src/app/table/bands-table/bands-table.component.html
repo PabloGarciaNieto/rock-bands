@@ -1,4 +1,7 @@
 <div class="table-container">
+    <div class="header">
+        <h1 class="list-title"><span class="no-italic">MY</span> <span class="yellow">70's</span> ROCK BANDS</h1>
+    </div>
     <div class="filter-add">
         <mat-form-field class="filter-background">
             <mat-label class="filter">Filter by Band name</mat-label>
@@ -60,8 +63,7 @@
         </table>
         <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
     </div>
-
-    <button mat-icon-button color="warn" (click)="clear()">
+    <button mat-icon-button color="accent" (click)="clear()">
     <mat-icon class="mat-18">delete</mat-icon>
-  </button>
+  </button> <span class="ico-text">(Aquí podéis limpiar el local storage antes de cerrar la app)</span> <span class="advice">Pero mientras la uséis no lo clickéis o se perderá la simulación de base de datos.</span>
 </div>

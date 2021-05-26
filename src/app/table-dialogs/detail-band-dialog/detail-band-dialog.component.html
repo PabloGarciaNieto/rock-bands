@@ -11,7 +11,7 @@
     <div class="step-1">
         <div class="band-name">
             <h3 class="titles">Band name</h3>
-            <h1>{{newBandForm.name}}</h1>
+            <h1 class="h1">{{newBandForm.name}}</h1>
             <h3 class="titles">Origin</h3>
             <h3 class="country">{{newBandForm.country}}</h3>
         </div>
@@ -37,6 +37,6 @@
         </div>
     </div>
     <div class="close">
-        <button mat-raised-button mat-dialog-close color="primary">Close card detail</button>
+        <button mat-raised-button mat-dialog-close tabindex="-1" color="accent">Close card detail</button>
     </div>
 </mat-dialog-content>
