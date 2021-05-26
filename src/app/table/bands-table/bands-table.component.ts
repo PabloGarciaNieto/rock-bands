@@ -1,7 +1,8 @@
-import { Component, AfterViewInit, ViewChild, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { BreakpointObserver, BreakpointState, Breakpoints } from '@angular/cdk/layout';
 import { Band } from './../../models/interface-band';
 import { Subscription } from 'rxjs';
 import { BandsService } from './../../services/bands.service';
@@ -28,10 +29,14 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   paginator!: MatPaginator;
   @ViewChild(MatSort)
   sort!: MatSort;
+  //Para cambiar el ancho de los mat-dialog en función del dispositivo
+  width: string = '';
+  maxWidth: string = '';
   //Para poder unsubsctribe en OnDestroy
   public subscriptions: Subscription[] = [];
   //-----
-  constructor(private bansService: BandsService,
+  constructor(private breakpointObserver: BreakpointObserver,
+    private bansService: BandsService,
     public dialog: MatDialog) {
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
     this.dataSource = new MatTableDataSource(this.bandData);
@@ -40,7 +45,6 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     let sessionData = JSON.parse(localStorage.getItem('dataSource') || '[]');
     if (sessionData.length > 0) {
-      console.log(sessionData);
       this.bandData = sessionData;
       this.bansService.newBands(this.bandData);
       this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
@@ -58,16 +62,29 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-  //Delete a Band--------
+  //Para cambiar el ancho de los mat-dialog en función del dispositivo-----
+  get getBreakpoints() {
+    return this.breakpointObserver
+      .observe([Breakpoints.Handset, Breakpoints.HandsetPortrait])
+      .subscribe((state: BreakpointState) => {
+        console.log(state.matches);
+        if (state.matches) {
+          this.width = '95vw';
+          this.maxWidth = '95vw';
+        } else {
+          this.width = '70vw';
+          this.maxWidth = '70vw';
+        }
+      });
+  }
+  //Borrar una banda--------
   deleteBand(bandId: number) {
     console.log('ouch!!');
     let index = this.bandData.findIndex(e => e.id === bandId);
-    console.log(index);
     this.bandData.splice(index, 1);
     this.bansService.newBands(this.bandData);
     this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
@@ -76,10 +93,11 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.sort = this.sort;
     localStorage.setItem('dataSource', JSON.stringify(this.bandData));
   }
-  //Create a New Band--------
+  //CREAR UNA BANDA--------
   openNewBandDialog() {
+    this.subscriptions.push(this.getBreakpoints);
+  //Para que el reduce no pete cuando el array llegue vacio tras borrar todas las bandas
     if (this.bandData.length < 1) {
-      console.log('reduce petará');
       let newBandForm: Band = {
         id: 0,
         name: '',
@@ -90,28 +108,23 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       };
       this.bandData.push(newBandForm);
     }
+    //Crear nuevo id-----
     const maxIdBand = this.bandData.reduce(function (prev, current) {
       return (prev.id > current.id) ? prev : current
     });
-    console.log('maxIdBand');
-    console.log(maxIdBand);
     let newId = maxIdBand.id + 1;
-    console.log('this.bandData');
-    console.log(this.bandData);
     let idSt = newId;
     let dialogRef = this.dialog.open(NewBandDialogComponent, {
       data: {
         id: idSt
       },
-      width: '95vw',
-      maxWidth: '95vw',
+      width: this.width,
+      maxWidth: this.maxWidth,
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
-        console.log('New band created');
         this.bandData.push(res.data);
         let id = this.bandData.findIndex(e => e.id === 0);
-        console.log(id);
         if (id !== -1) {
           this.bandData.splice(id, 1);
         }
@@ -126,10 +139,9 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
-  //Edit a Band--------
+  //EDITAR UNA BANDA--------
   OpenEditBandDialog(bandId: number) {
-    console.log(this.bandData);
-    console.log(typeof this.bandData);
+    this.subscriptions.push(this.getBreakpoints);
     let band = this.bandData.find(val => val.id === bandId);
     console.log(band?.members);
     let dialogRef = this.dialog.open(EditBandDialogComponent, {
@@ -141,15 +153,14 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
         history: band?.history,
         video: band?.video,
       },
-      width: '95vw',
-      maxWidth: '95vw',
+      width: this.width,
+      maxWidth: this.maxWidth,
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         const bandId = res.data.id
         let index = this.bandData.findIndex(e => e.id === bandId);
         this.bandData.splice(index, 1);
-        console.log(this.bandData);
         this.bandData.push(res.data);
         this.bansService.newBands(this.bandData);
         this.subscriptions.push(this.bansService.bands.subscribe(data => this.bandData = data));
@@ -157,19 +168,16 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource = new MatTableDataSource(this.bandData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.bandData);
       } else {
         console.log('No band edited');
       }
     });
   }
-  //Show  a band detail--------------
+  //VER DETALLE DE UNA BANDA--------------
   openShowBandDetail(bandId: number) {
-    console.log(this.bandData);
-    console.log(typeof this.bandData);
+    this.subscriptions.push(this.getBreakpoints);
     let band = this.bandData.find(val => val.id === bandId);
-    console.log(band?.members);
-    let dialogRef = this.dialog.open(DetailBandDialogComponent, {
+    this.dialog.open(DetailBandDialogComponent, {
       data: {
         id: band?.id,
         name: band?.name,
@@ -178,8 +186,8 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
         history: band?.history,
         video: band?.video,
       },
-      width: '95vw',
-      maxWidth: '95vw',
+      width: this.width,
+      maxWidth: this.maxWidth,
     });
   }
   clear() {

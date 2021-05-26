@@ -52,15 +52,12 @@ export class NewBandDialogComponent implements OnInit {
   }
   deleteMember(i: any) {
     this.membersNames.removeAt(i);
-    console.log(i);
-    console.log(typeof i);
   }
   addBand() {
     this.newBandForm.value.members.map((el: { id: number; }) => {
       el.id = Math.random();
     })
     this.dialogRef.close({ data: this.newBandForm.value });
-    console.log(this.newBandForm.value.name);
   }
 
 }

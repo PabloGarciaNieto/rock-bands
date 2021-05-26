@@ -13,7 +13,7 @@ export class BandsService {
       id: 1,
       name: 'The Rolling Stones',
       country: 'England',
-      history: 'Keith Richards and Mick Jagger became childhood friends and classmates in 1950 in Dartford, Kent. The Jagger family moved to Wilmington, Kent, five miles (8.0 km) away, in 1954. In the mid-1950s, Jagger formed a garage band with his friend Dick Taylor; the group mainly played material by Muddy Waters, Chuck Berry, Little Richard, Howlin Wolf and Bo Diddley. Jagger met Richards again on 17 October 1961 on platform two of Dartford railway station.[8] The Chuck Berry and Muddy Waters records Jagger was carrying revealed a shared interest. A musical partnership began shortly afterwards. Richards and Taylor often met Jagger at his house. The meetings moved to Taylor house in late 1961 where Alan Etherington and Bob Beckwith joined the trio.',
+      history: 'Keith Richards and Mick Jagger became childhood friends and classmates in 1950 in Dartford, Kent. The Jagger family moved to Wilmington, Kent, five miles (8.0 km) away, in 1954. In the mid-1950s, Jagger formed a garage band with his friend Dick Taylor; the group mainly played material by Muddy Waters, Chuck Berry, Little Richard, Howlin Wolf and Bo Diddley. Jagger met Richards again on 17 October 1961 on platform two of Dartford railway station. The Chuck Berry and Muddy Waters records Jagger was carrying revealed a shared interest. A musical partnership began shortly afterwards. Richards and Taylor often met Jagger at his house. The meetings moved to Taylor house in late 1961 where Alan Etherington and Bob Beckwith joined the trio.',
       video: '9g7RmKF-gRI',
       members: [
         { id: Math.random(), name: 'Mick Jagger', instrument: 'Vocals' },

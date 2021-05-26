@@ -7,6 +7,7 @@
         <mat-form-field appearance="outline">
             <mat-label>Band name</mat-label>
             <input matInput placeholder="Band name" formControlName="name">
+            <mat-hint align="start">Band name required</mat-hint>
             <mat-error *ngIf="getControl.name.touched && getControl.name.invalid">
                 Band name required, yeah!
             </mat-error>
@@ -43,9 +44,10 @@
           </textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Video</mat-label>
+            <mat-label>YouTube video ID</mat-label>
             <input matInput placeholder="video" formControlName="video">
+            <mat-hint align="start">A youTube video ID has 11 characters</mat-hint>
         </mat-form-field>
-        <button mat-raised-button [disabled]="newBandForm.invalid" color="accent" (click)="addBand()">Create Band</button>
+        <button class="margin-top" mat-raised-button [disabled]="newBandForm.invalid" color="accent" (click)="addBand()">Create Band</button>
     </form>
 </mat-dialog-content>

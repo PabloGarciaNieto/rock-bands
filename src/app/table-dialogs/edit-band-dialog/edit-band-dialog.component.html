@@ -1,4 +1,4 @@
-<mat-dialog-content>
+<mat-dialog-content class="cont">
     <div class="title">
         <h2>Edit Band Info<span class="smaller-text"> and keep on rocking!</span></h2>
     </div>
@@ -32,13 +32,14 @@
         </div>
         <mat-form-field appearance="outline">
             <mat-label>History</mat-label>
-            <textarea matInput placeholder="history" [(ngModel)]="newBandForm.history" name="history">
+            <textarea matInput placeholder="history" [(ngModel)]="newBandForm.history" name="history" class="history-container">
       </textarea>
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <mat-label>Video</mat-label>
+            <mat-label>YouTube video ID</mat-label>
             <input matInput placeholder="video" [(ngModel)]="newBandForm.video" name="video">
+            <mat-hint align="start">A youTube video ID has 11 characters</mat-hint>
         </mat-form-field>
-        <button mat-raised-button color="accent" [disabled]="editForm.invalid" (click)="editBand()">Edit Band</button>
+        <button class="margin-top" mat-raised-button color="accent" [disabled]="editForm.invalid" (click)="editBand()">Edit Band</button>
     </form>
 </mat-dialog-content>

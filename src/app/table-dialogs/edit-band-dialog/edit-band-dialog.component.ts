@@ -27,12 +27,9 @@ export class EditBandDialogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
-    console.log(typeof this.data);
     this.newBandForm = this.data;
     this.newBandForm.members.map(val => {
       this.members.push(val);
-      console.log(val);
     });
   }
 
