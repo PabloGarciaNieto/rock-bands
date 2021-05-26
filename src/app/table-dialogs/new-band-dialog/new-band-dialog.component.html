@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="button-container button-container--add">
-                <button mat-raised-button color="primary" (click)="addMemberName()">Add New Member</button>
+                <button mat-raised-button color="accent" (click)="addMemberName()">Add New Member</button>
             </div>
         </div>
         <mat-form-field appearance="outline">
@@ -48,6 +48,9 @@
             <input matInput placeholder="video" formControlName="video">
             <mat-hint align="start">A youTube video ID has 11 characters</mat-hint>
         </mat-form-field>
-        <button class="margin-top" mat-raised-button [disabled]="newBandForm.invalid" color="accent" (click)="addBand()">Create Band</button>
+        <button class="create-button" mat-raised-button [disabled]="newBandForm.invalid" color="accent" (click)="addBand()">Create Band</button>
     </form>
+    <div class="close">
+        <button mat-raised-button mat-dialog-close color="primary">No create</button>
+    </div>
 </mat-dialog-content>

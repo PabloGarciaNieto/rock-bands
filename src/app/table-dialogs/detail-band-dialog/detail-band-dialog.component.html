@@ -1,24 +1,29 @@
 <mat-dialog-content>
-    <div *ngIf="incomplete">
+    <div *ngIf="incomplete" class="incomplete">
         <h4>The next info is missing:</h4>
         <div *ngFor="let incompleteValue of incompleteValues; let i = index">
-            <p>{{ incompleteValue }}</p>
+            <p class="missing-info">{{ incompleteValue }}</p>
         </div>
-        <p class="no-members" *ngIf="noMembers">members</p>
-        <p class="wrong-id" *ngIf="noVideo">(Wrong youtube video Id)</p>
-        <h4>Go to the table to complete the Band info</h4>
+        <p class="missing-info" *ngIf="noMembers">members</p>
+        <p class="missing-info" *ngIf="noVideo">Wrong youtube video Id</p>
+        <button mat-button mat-dialog-close>Go to List and edit the Band info</button>
     </div>
     <div class="step-1">
         <div class="band-name">
+            <h3 class="titles">Band name</h3>
             <h1>{{newBandForm.name}}</h1>
-            <h3>{{newBandForm.country}}</h3>
+            <h3 class="titles">Origin</h3>
+            <h3 class="country">{{newBandForm.country}}</h3>
         </div>
-        <youtube-player *ngIf="!noVideo" class="video" [videoId]="video" suggestedQuality="highres" [height]="height" [width]="width">
-        </youtube-player>
+        <div class="video">
+            <h3 class="titles">Video</h3>
+            <youtube-player *ngIf="!noVideo" class="video" [videoId]="video" suggestedQuality="highres" [height]="height" [width]="width">
+            </youtube-player>
+        </div>
     </div>
     <div class="step-2">
         <div class="member-names">
-            <h3 class="member-names-title">Band members</h3>
+            <h3 class="titles">Band members</h3>
             <div *ngFor="let member of members; let i = index">
                 <div class="name-box">
                     <p>{{member.name}}</p>
@@ -27,8 +32,11 @@
             </div>
         </div>
         <div class="band-history">
-            <h3>History</h3>
+            <h3 class="titles titles--history">History</h3>
             <p>{{newBandForm.history}}</p>
         </div>
+    </div>
+    <div class="close">
+        <button mat-raised-button mat-dialog-close color="primary">Close card detail</button>
     </div>
 </mat-dialog-content>

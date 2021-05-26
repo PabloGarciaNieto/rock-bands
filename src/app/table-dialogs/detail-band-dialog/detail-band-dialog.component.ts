@@ -22,7 +22,6 @@ export class DetailBandDialogComponent implements OnInit {
   keyCheker: any = [];
   index: number[] = [];
   incompleteValues: any = [];
-  stringValue: string = '';
   cont: number = 0;
   incomplete: boolean = false;
   noVideo: boolean = false;
@@ -52,10 +51,8 @@ export class DetailBandDialogComponent implements OnInit {
       this.valueCheker.push(value);
       this.keyCheker.push(key);
     });
-    console.log(this.keyCheker);
-    console.log(this.valueCheker);
     for (let i = 0; i < this.valueCheker.length; i++) {
-      if (this.valueCheker[i] === this.stringValue) {
+      if (this.valueCheker[i] === '') {
         this.index.push(i);
         this.cont++
       }
@@ -70,21 +67,16 @@ export class DetailBandDialogComponent implements OnInit {
     if (videoKey !== -1) {
       this.incompleteValues.splice(videoKey, 1);
     }
-
-    console.log(videoKey);
     if (this.members.length < 1) {
       this.incomplete = true;
       this.noMembers = true;
     }
     for (let i = 0; i < this.members.length; i++) {
-      if (this.members[i].instrument === this.stringValue || this.members[i].name === this.stringValue) {
+      if (this.members[i].instrument === '' || this.members[i].name === '') {
         this.incomplete = true;
         this.noMembers = true;
       }
     }
-    console.log(this.members);
-    console.log(this.incompleteValues);
-
   }
 
 }

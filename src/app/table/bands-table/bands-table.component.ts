@@ -71,7 +71,6 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.breakpointObserver
       .observe([Breakpoints.Handset, Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
-        console.log(state.matches);
         if (state.matches) {
           this.width = '95vw';
           this.maxWidth = '95vw';
@@ -143,7 +142,6 @@ export class BandsTableComponent implements OnInit, AfterViewInit, OnDestroy {
   OpenEditBandDialog(bandId: number) {
     this.subscriptions.push(this.getBreakpoints);
     let band = this.bandData.find(val => val.id === bandId);
-    console.log(band?.members);
     let dialogRef = this.dialog.open(EditBandDialogComponent, {
       data: {
         id: band?.id,

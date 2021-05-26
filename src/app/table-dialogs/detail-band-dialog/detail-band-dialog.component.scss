@@ -1,3 +1,21 @@
+.incomplete {
+    width: 45%;
+    margin-bottom: 30px;
+    border: 1px solid #f06292;
+    border-radius: 5px;
+    padding: 20px;
+    @media (max-width: 768px) {
+        width: 90%;
+    }
+    .missing-info {
+        color: #f06292;
+    }
+}
+
+.country {
+    color: #f06292;
+}
+
 .step-1,
 .step-2 {
     display: flex;
@@ -12,7 +30,7 @@
 .video {
     width: 45%;
     @media (max-width: 768px) {
-        width: 100%;
+        width: 90%;
         margin-top: 30px;
     }
 }
@@ -27,10 +45,6 @@
     @media (max-width: 768px) {
         width: 90%;
         margin-top: 30px;
-    }
-    .member-names-title {
-        margin-bottom: 20px;
-        color: #bdbdbd;
     }
     .name-box {
         width: 100%;
@@ -48,11 +62,24 @@
 
 .band-history {
     width: 45%;
-    h3 {
-        color: #bdbdbd;
-    }
     @media (max-width: 768px) {
-        width: 100%;
+        width: 90%;
         margin-top: 30px;
     }
+}
+
+.titles {
+    margin-bottom: 10px;
+    color: #bdbdbd;
+    &--history {
+        margin-top: 20px;
+        @media (max-width: 768px) {
+            margin-top: 0;
+        }
+    }
+}
+
+.close {
+    margin-top: 30px;
+    text-align: center;
 }
